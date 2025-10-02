@@ -4,7 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
-import chardet
 
 # Função específica site IFUSP
 
