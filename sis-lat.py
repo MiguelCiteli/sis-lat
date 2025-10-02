@@ -7,6 +7,13 @@ import re
 
 # Função específica site IFUSP
 
+def corrigir_texto(texto):
+    if not texto:
+        return ""
+    texto = texto.strip()
+    texto = texto.encode('latin1', errors='ignore').decode('utf-8', errors='ignore')
+    return texto
+
 def obter_eventos_ifusp():
     url_base = "https://portal.if.usp.br"
     url = f"{url_base}/ifusp/pt-br/eventos"
@@ -124,7 +131,8 @@ def obter_eventos_ufrj():
 
     try:
         response = requests.get(url, verify=False)
-        soup = BeautifulSoup(response.content, "html.parser")
+        html_text = response.content.decode('utf-8', errors='replace')
+        soup = BeautifulSoup(html_text, "html.parser")
         eventos = []
 
         blocos_eventos = soup.select("div.tribe-events-loop > div[id^='post-']")
@@ -137,12 +145,12 @@ def obter_eventos_ufrj():
             if not (titulo_tag and data_inicio_tag):
                 continue
 
-            titulo = titulo_tag.get_text(strip=True)
+            titulo = corrigir_texto(titulo_tag.get_text(strip=True))
             link = titulo_tag["href"]
-            title_attr = titulo_tag.get("title", "")
+            title_attr = corrigir_texto(titulo_tag.get("title", ""))
 
-            data_inicio = data_inicio_tag.get_text(strip=True)
-            data_fim = data_fim_tag.get_text(strip=True) if data_fim_tag else ""
+            data_inicio = corrigir_texto(data_inicio_tag.get_text(strip=True))
+            data_fim = corrigir_texto(data_fim_tag.get_text(strip=True)) if data_fim_tag else ""
 
             def extrair_dia_mes(texto):
                 match = re.search(r"(\d{1,2}) de ([a-zç]+)", texto.lower())
