@@ -5,14 +5,22 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
 
-# Função específica site IFUSP
-
 def corrigir_texto(texto):
     if not texto:
         return ""
     texto = texto.strip()
-    texto = texto.encode('latin1', errors='ignore').decode('utf-8', errors='ignore')
+    texto = (texto.replace('Ã§', 'ç')
+                   .replace('Ãª', 'ê')
+                   .replace('Ã¡', 'á')
+                   .replace('Ã£', 'ã')
+                   .replace('Ã³', 'ó')
+                   .replace('Ãº', 'ú')
+                   .replace('Ã ', 'à')
+                   .replace('Ãº', 'ú')
+                   .replace('Ã‘', 'Ñ'))
     return texto
+
+# Função específica site IFUSP
 
 def obter_eventos_ifusp():
     url_base = "https://portal.if.usp.br"
@@ -145,12 +153,12 @@ def obter_eventos_ufrj():
             if not (titulo_tag and data_inicio_tag):
                 continue
 
-            titulo = corrigir_texto(titulo_tag.get_text(strip=True))
+            titulo = titulo_tag.get_text(strip=True)
             link = titulo_tag["href"]
-            title_attr = corrigir_texto(titulo_tag.get("title", ""))
+            title_attr = titulo_tag.get("title", "")
 
-            data_inicio = corrigir_texto(data_inicio_tag.get_text(strip=True))
-            data_fim = corrigir_texto(data_fim_tag.get_text(strip=True)) if data_fim_tag else ""
+            data_inicio = data_inicio_tag.get_text(strip=True)
+            data_fim = data_fim_tag.get_text(strip=True) if data_fim_tag else ""
 
             def extrair_dia_mes(texto):
                 match = re.search(r"(\d{1,2}) de ([a-zç]+)", texto.lower())
