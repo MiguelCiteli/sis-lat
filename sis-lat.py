@@ -13,8 +13,7 @@ def obter_eventos_ifusp():
 
     try:
         response = requests.get(url, verify=True)
-        html_text = response.content.decode('latin1')
-        soup = BeautifulSoup(response.content, "html.parser")
+        soup = BeautifulSoup(response.content, "html.parser", from_encoding='utf-8')
         eventos = []
 
         blocos_eventos = soup.find_all("div", class_="content")
