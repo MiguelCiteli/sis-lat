@@ -436,39 +436,26 @@ def converter_para_datetime(data_str):
         pass
     return datetime.max  # se não conseguir converter, manda pro fim da lista
 
-st.set_page_config(page_title="Eventos de Física 2025", layout="centered")
+st.set_page_config(page_title="Eventos de Física", layout="centered")
 
-st.title("🔭 Sistema de Eventos de Física 2025")
+st.title("🔭 Sistema de Eventos de Física")
 st.markdown("### Consulte eventos de Física em universidades brasileiras")
 
-menu = st.sidebar.radio("Menu", ["🏠 Início", "📍 Buscar por Cidade/Estado"])
+cidade_desejada = st.text_input("Digite uma cidade, estado (ex: Brasília, Rio de Janeiro, São Paulo) ou 'todos':", "todos")
 
-if menu == "🏠 Início":
-    st.subheader("Bem-vindo ao Sistema de Eventos de Física!")
-    st.write("""
-    Este site coleta automaticamente informações sobre eventos de Física
-    em diversas universidades e institutos brasileiros.
-    
-    Use o menu lateral para buscar eventos em **cidades específicas**
-    ou visualizar todos os disponíveis em 2025.
-    """)
+if st.button("🔎 Buscar eventos"):
+    st.write(f"### Resultados para **{cidade_desejada.title()}** em 2025:")
 
-elif menu == "📍 Buscar por Cidade/Estado":
-    cidade_desejada = st.text_input("Digite uma cidade, estado ou 'todos':", "todos")
+    eventos = listar_eventos(cidade_desejada)
 
-    if st.button("🔎 Buscar eventos"):
-        st.write(f"### Resultados para **{cidade_desejada.title()}** em 2025:")
-
-        eventos = listar_eventos(cidade_desejada)
-
-        if not eventos:
-            st.warning("Nenhum evento encontrado.")
-        else:
-            for evento in eventos:
-                with st.container():
-                    st.markdown(f"**{evento['local']}**")
-                    st.markdown(f"📌 {evento['titulo']}")
-                    st.markdown(f"🗓️ {evento['data']}")
-                    if evento['link']:
-                        st.markdown(f"[🔗 Mais informações]({evento['link']})")
-                    st.markdown("---")
+    if not eventos:
+        st.warning("Nenhum evento encontrado.")
+    else:
+        for evento in eventos:
+            with st.container():
+                st.markdown(f"**{evento['local']}**")
+                st.markdown(f"📌 {evento['titulo']}")
+                st.markdown(f"🗓️ {evento['data']}")
+                if evento['link']:
+                    st.markdown(f"[🔗 Mais informações]({evento['link']})")
+                st.markdown("---")
