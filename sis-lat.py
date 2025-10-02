@@ -13,8 +13,6 @@ def obter_eventos_ifusp():
     url = f"{url_base}/ifusp/pt-br/eventos"
 
     try:
-        detected = chardet.detect(response.content)
-        html_text = response.content.decode(detected['encoding'])
         response = requests.get(url, verify=True)
         soup = BeautifulSoup(response.content, "html.parser")
         eventos = []
