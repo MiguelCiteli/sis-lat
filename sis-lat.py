@@ -437,15 +437,6 @@ def converter_para_datetime(data_str):
         pass
     return datetime.max  # se não conseguir converter, manda pro fim da lista
 
-def capitalizar_cidade(texto):
-    preposicoes = ["de", "da", "do", "dos", "das", "e"]
-    palavras = texto.split()
-    resultado = [palavra.capitalize() if palavra.lower() not in preposicoes else palavra.lower() for palavra in palavras]
-    return " ".join(resultado)
-
-cidade_desejada = "rio de janeiro"
-st.write(f"### Resultados para **{capitalizar_cidade(cidade_desejada)}** em 2025:")
-
 st.set_page_config(page_title="Eventos de Física", layout="centered")
 
 st.title("🔭 Sistema de Eventos de Física")
