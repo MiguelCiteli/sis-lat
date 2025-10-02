@@ -13,6 +13,7 @@ def obter_eventos_ifusp():
 
     try:
         response = requests.get(url, verify=True)
+        response.encoding = 'utf-8'
         soup = BeautifulSoup(response.content, "html.parser")
         eventos = []
 
@@ -441,7 +442,7 @@ st.set_page_config(page_title="Eventos de Física", layout="centered")
 st.title("🔭 Sistema de Eventos de Física")
 st.markdown("### Consulte eventos de Física em universidades brasileiras")
 
-cidade_desejada = st.text_input("Digite uma cidade, estado (ex: Brasília, Rio de Janeiro, São Paulo) ou 'Todos':", "")
+cidade_desejada = st.text_input("Digite uma cidade, estado (ex: Rio de Janeiro, São Paulo) ou 'Todos':", "")
 
 if st.button("🔎 Buscar eventos"):
     st.write(f"### Resultados para **{cidade_desejada.title()}** em 2025:")
