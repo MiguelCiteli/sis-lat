@@ -451,7 +451,7 @@ def capitalizar_cidade(texto):
 cidade_desejada = st.text_input("Digite uma cidade, estado (ex: Rio de Janeiro, São Paulo) ou 'Todos':", "")
 
 if st.button("🔎 Buscar eventos"):
-    st.write(f"### Resultados para **{cidade_desejada.title()}** em 2025:")
+    st.write(f"### Resultados para **{capitalizar_cidade(cidade_desejada)}** em 2025:")
 
     eventos = listar_eventos(cidade_desejada)
 
