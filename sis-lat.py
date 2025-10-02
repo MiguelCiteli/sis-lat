@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import re
+import chardet
 
 # Função específica site IFUSP
 
@@ -12,8 +13,10 @@ def obter_eventos_ifusp():
     url = f"{url_base}/ifusp/pt-br/eventos"
 
     try:
+        detected = chardet.detect(response.content)
+        html_text = response.content.decode(detected['encoding'])
         response = requests.get(url, verify=True)
-        soup = BeautifulSoup(response.content, "html.parser", from_encoding='utf-8')
+        soup = BeautifulSoup(response.content, "html.parser")
         eventos = []
 
         blocos_eventos = soup.find_all("div", class_="content")
