@@ -399,13 +399,13 @@ def listar_eventos(cidade):
     if cidade in ["brasília", "brasilia", "df", "todos"]:
         eventos += [{"local": "📍 Brasília (CIF-UnB)", **e} for e in obter_eventos_cif_unb()]
 
-    if cidade in ["são paulo", "sao paulo", "sp", "todos"]:
+    if cidade in ["São Paulo", "são paulo", "sao paulo", "sp", "todos"]:
         eventos += [{"local": "📍 São Paulo (IFUSP)", **e} for e in obter_eventos_ifusp()]
         eventos += [{"local": "📍 São Paulo (IFSC-USP)", **e} for e in obter_eventos_ifsc_usp()]
         eventos += [{"local": "📍 São Paulo (UNICAMP)", **e} for e in obter_eventos_unicamp()]
         eventos += [{"local": "📍 São Paulo (IFT-UNESP)", **e} for e in obter_eventos_ift()]
 
-    if cidade in ["rio de janeiro", "rj", "todos"]:
+    if cidade in ["Rio de Janeiro", "rio de janeiro", "rj", "todos"]:
         eventos += [{"local": "📍 Rio de Janeiro (UFRJ)", **e} for e in obter_eventos_ufrj()]
         eventos += [{"local": "📍 Rio de Janeiro (CBPF)", **e} for e in obter_eventos_cbpf()]
 
