@@ -442,6 +442,12 @@ st.set_page_config(page_title="Eventos de Física", layout="centered")
 st.title("🔭 Sistema de Eventos de Física")
 st.markdown("### Consulte eventos de Física em universidades brasileiras")
 
+def capitalizar_cidade(texto):
+    preposicoes = ["de", "da", "do", "dos", "das", "e"]
+    palavras = texto.split()
+    resultado = [palavra.capitalize() if palavra.lower() not in preposicoes else palavra.lower() for palavra in palavras]
+    return " ".join(resultado)
+
 cidade_desejada = st.text_input("Digite uma cidade, estado (ex: Rio de Janeiro, São Paulo) ou 'Todos':", "")
 
 if st.button("🔎 Buscar eventos"):
