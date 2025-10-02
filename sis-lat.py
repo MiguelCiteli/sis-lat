@@ -13,7 +13,7 @@ def obter_eventos_ifusp():
 
     try:
         response = requests.get(url, verify=True)
-        response.encoding = 'utf-8'
+        html_text = response.content.decode('latin1')
         soup = BeautifulSoup(response.content, "html.parser")
         eventos = []
 
